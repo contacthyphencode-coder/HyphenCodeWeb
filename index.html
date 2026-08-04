@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyphen Code — Software, Automation & AI</title>
+  <meta name="description" content="Hyphen Code builds web platforms, backends, scrapers and AI automations. Founded by Ahsan Tahir and Muhammad Qais." />
+
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+
+  <!-- Fonts: Chakra Petch (angular display, echoes the logo cuts), Manrope (body), JetBrains Mono (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top">
+      <img src="assets/logo.png" alt="Hyphen Code logo" class="nav__logo" />
+      <span class="nav__name">HYPHEN<em>—</em>CODE</span>
+    </a>
+
+    <nav class="nav__links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#founders">Founders</a>
+      <a href="#contact" class="nav__cta">Start a project</a>
+    </nav>
+
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="top">
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <div class="hero__inner">
+      <p class="hero__eyebrow mono reveal">— software studio · est. by two engineers</p>
+
+      <h1 class="hero__title">
+        <span class="reveal d1">WE CONNECT</span>
+        <span class="reveal d2">IDEAS <em class="hyphen" aria-hidden="true">—</em> CODE</span>
+      </h1>
+
+      <!-- Rotating description carousel, sits on top of the starfield -->
+      <div class="hero__carousel reveal d3" aria-live="polite">
+        <span class="hero__static">We build</span>
+        <span class="hero__words" id="rotator">
+          <span class="is-active">web platforms</span>
+          <span>scalable backends</span>
+          <span>frontend experiences</span>
+          <span>web scrapers</span>
+          <span>automations</span>
+          <span>AI workflows</span>
+        </span>
+      </div>
+
+      <p class="hero__sub reveal d4">
+        Hyphen Code is a software company that designs, ships and maintains
+        production systems — from the pixel to the database to the bots that
+        never sleep.
+      </p>
+
+      <div class="hero__actions reveal d5">
+        <a href="#services" class="btn btn--solid" data-magnet>See what we do</a>
+        <a href="#contact" class="btn btn--ghost" data-magnet>Talk to us</a>
+      </div>
+    </div>
+
+    <a href="#services" class="hero__scroll mono" aria-label="Scroll to services">
+      scroll <span class="hero__scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ===================== MARQUEE ===================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>WEB DEVELOPMENT — BACKEND — FRONTEND — WEB SCRAPING — AUTOMATION — AI AUTOMATION — </span>
+      <span>WEB DEVELOPMENT — BACKEND — FRONTEND — WEB SCRAPING — AUTOMATION — AI AUTOMATION — </span>
+    </div>
+  </div>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="section" id="services">
+    <div class="section__head reveal">
+      <p class="eyebrow mono">— services</p>
+      <h2>Everything between the idea and the deploy</h2>
+    </div>
+
+    <div class="grid">
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">web</span>
+        <h3>Web Development</h3>
+        <p>Full websites and web apps built end to end — fast, responsive, SEO-ready and easy for your team to grow.</p>
+      </article>
+
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">api</span>
+        <h3>Backend Development</h3>
+        <p>APIs, databases, queues and workers designed for real traffic. Python, PostgreSQL, Celery, RabbitMQ and friends.</p>
+      </article>
+
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">ui</span>
+        <h3>Frontend Development</h3>
+        <p>Interfaces people actually enjoy using — clean component systems, smooth animations, accessible by default.</p>
+      </article>
+
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">bot</span>
+        <h3>Web Scraping</h3>
+        <p>Reliable data extraction at scale: anti-bot handling, scheduling, monitoring and clean structured output.</p>
+      </article>
+
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">ops</span>
+        <h3>Automations</h3>
+        <p>Repetitive work turned into pipelines — reports, syncs, alerts and integrations that run while you sleep.</p>
+      </article>
+
+      <article class="card reveal" data-tilt>
+        <span class="card__index mono">ai</span>
+        <h3>AI Automations</h3>
+        <p>LLM-powered agents and workflows: document processing, data enrichment, chat assistants and smart routing.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESS ===================== -->
+  <section class="section section--alt" id="process">
+    <div class="section__head reveal">
+      <p class="eyebrow mono">— process</p>
+      <h2>How a project moves through Hyphen Code</h2>
+    </div>
+
+    <ol class="steps">
+      <li class="step reveal">
+        <span class="step__num mono">01</span>
+        <div>
+          <h3>Scope</h3>
+          <p>We talk, we ask questions, and we write down exactly what will be built — no vague promises.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__num mono">02</span>
+        <div>
+          <h3>Build</h3>
+          <p>Short iterations with visible progress. You see working software early, not screenshots at the end.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__num mono">03</span>
+        <div>
+          <h3>Ship</h3>
+          <p>Deployment, monitoring and documentation included. We hand over something your team can run.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__num mono">04</span>
+        <div>
+          <h3>Maintain</h3>
+          <p>Systems drift. We stay available for fixes, upgrades and the next feature on your list.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== FOUNDERS ===================== -->
+  <section class="section" id="founders">
+    <div class="section__head reveal">
+      <p class="eyebrow mono">— founders</p>
+      <h2>Two engineers, one standard</h2>
+    </div>
+
+    <div class="founders">
+      <article class="founder reveal" data-tilt>
+        <div class="founder__mark mono">AT</div>
+        <h3>Ahsan Tahir</h3>
+        <p class="founder__role mono">co-founder — backend · data · automation</p>
+        <p>Builds the invisible half: APIs, scraping pipelines, task queues and the infrastructure that keeps them honest.</p>
+        <a class="founder__mail mono" href="mailto:ahsantahir0@gmail.com">ahsantahir0@gmail.com</a>
+      </article>
+
+      <article class="founder reveal" data-tilt>
+        <div class="founder__mark mono">MQ</div>
+        <h3>Muhammad Qais</h3>
+        <p class="founder__role mono">co-founder — product · web · frontend</p>
+        <p>Owns the visible half: product thinking, interfaces and the details that make software feel finished.</p>
+        <a class="founder__mail mono" href="mailto:mqais6666@gmail.com">mqais6666@gmail.com</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section section--alt contact" id="contact">
+    <canvas id="stars2" aria-hidden="true"></canvas>
+    <div class="contact__inner reveal">
+      <p class="eyebrow mono">— contact</p>
+      <h2>Have something to build?</h2>
+      <p class="contact__sub">Tell us what you need. We reply within one working day.</p>
+      <div class="contact__actions">
+        <a class="btn btn--solid" data-magnet href="mailto:ahsantahir0@gmail.com,mqais6666@gmail.com?subject=Project%20inquiry%20—%20Hyphen%20Code">Email the founders</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer__brand">
+      <img src="assets/logo.png" alt="" class="footer__logo" />
+      <span class="mono">HYPHEN—CODE</span>
+    </div>
+    <nav class="footer__links mono">
+      <a href="#services">services</a>
+      <a href="#process">process</a>
+      <a href="#founders">founders</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <p class="footer__note mono">© <span id="year"></span> Hyphen Code — built by hand, shipped with care.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
