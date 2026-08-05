@@ -497,6 +497,121 @@ body.has-cursor :focus-visible { outline-color: #ffffff; }
 .contact__sub { color: var(--grey); margin-top: 16px; }
 .contact__actions { margin-top: 36px; }
 
+/* ---------- engagement bands ---------- */
+.bands {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 44px auto 0;
+  text-align: left;
+}
+.bands li {
+  border: 1px solid var(--line);
+  clip-path: var(--notch);
+  padding: 20px 22px;
+  background: var(--surface);
+}
+.bands__title {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.bands__desc { color: var(--grey); font-size: 14px; }
+
+/* ---------- contact form ---------- */
+.cform {
+  max-width: 640px;
+  margin: 48px auto 0;
+  text-align: left;
+  display: grid;
+  gap: 18px;
+}
+.cform__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 18px;
+}
+.cform__field { display: block; }
+.cform__label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+.cform input,
+.cform select,
+.cform textarea {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 12px 14px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.cform textarea { resize: vertical; min-height: 120px; }
+.cform input:hover,
+.cform select:hover,
+.cform textarea:hover { border-color: var(--grey); }
+.cform input:focus,
+.cform select:focus,
+.cform textarea:focus {
+  border-color: var(--ink);
+  background: #0a0a0a;
+}
+/* the field border already shows focus, so drop the doubled-up ring */
+.cform input:focus-visible,
+.cform select:focus-visible,
+.cform textarea:focus-visible { outline: none; }
+
+.cform select {
+  appearance: none;
+  /* chevron drawn inline so the control needs no extra asset */
+  background-image: linear-gradient(45deg, transparent 50%, var(--grey) 50%),
+                    linear-gradient(135deg, var(--grey) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+.cform option { background: var(--paper); color: var(--ink); }
+
+/* Honeypot - off-screen rather than display:none, which some bots detect.
+   Needs the type selector to outrank `.cform input { width: 100% }`. */
+.cform input.cform__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+}
+
+.cform__submit {
+  justify-self: start;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+.cform.is-sending .cform__submit { opacity: 0.6; pointer-events: none; }
+
+.cform__status { font-size: 13px; min-height: 1.2em; }
+.cform__status.is-ok { color: var(--ink); }
+.cform__status.is-error { color: #ff8f7a; }
+
+.contact__alt { margin-top: 28px; font-size: 13px; color: var(--grey); }
+.contact__alt a { border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.contact__alt a:hover { border-color: var(--ink); }
+
 /* =========================================================
    FOOTER
    ========================================================= */

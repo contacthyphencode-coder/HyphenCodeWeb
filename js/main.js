@@ -9,7 +9,8 @@
    7. Preloader
    8. Custom cursor
    9. Stat count-up
-  10. Hero watermark parallax
+  10. Contact form
+  11. Hero watermark parallax
    ========================================================= */
 
 const prefersReducedMotion = window.matchMedia(
@@ -348,7 +349,56 @@ starfield("stars2", 14000, false); // contact - sparser, ambient
 })();
 
 /* ---------------------------------------------------------
-   10. HERO WATERMARK PARALLAX
+   10. CONTACT FORM
+   Posts via fetch so the visitor stays on the page. Without
+   JS the form still submits natively to the same endpoint.
+   --------------------------------------------------------- */
+(function contactForm() {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+  if (!form || !status) return;
+
+  const MAILTO = "contact@hyphencode.com";
+
+  form.addEventListener("submit", async (e) => {
+    // endpoint not set up yet - don't fire a request that 404s
+    if (form.action.includes("REPLACE_WITH_YOUR_FORM_ID")) {
+      e.preventDefault();
+      status.textContent =
+        `Form isn't connected yet - please email ${MAILTO} directly.`;
+      status.className = "cform__status mono is-error";
+      return;
+    }
+
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    form.classList.add("is-sending");
+    status.textContent = "Sending...";
+    status.className = "cform__status mono";
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      status.textContent = "Thanks - we'll come back to you within 24 hours.";
+      status.className = "cform__status mono is-ok";
+    } catch (err) {
+      status.textContent =
+        `Something went wrong. Please email ${MAILTO} instead.`;
+      status.className = "cform__status mono is-error";
+    } finally {
+      form.classList.remove("is-sending");
+    }
+  });
+})();
+
+/* ---------------------------------------------------------
+   11. HERO WATERMARK PARALLAX
    Drifts against the starfield: stars shift toward the
    cursor, the mark shifts away from it.
    --------------------------------------------------------- */

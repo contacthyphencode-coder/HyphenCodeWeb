@@ -388,7 +388,7 @@
         <div class="founder__mark mono">AT</div>
         <h3>Ahsan Tahir</h3>
         <p class="founder__role mono">Co-Founder &amp; Full Stack Engineer · Data Extraction &amp; Automation</p>
-        <p>Builds the invisible half: APIs, scraping pipelines, task queues and the infrastructure that keeps them honest.</p>
+        <p>Works end to end - interfaces, APIs and the extraction pipelines behind them. The one who makes sure the whole stack lines up.</p>
         <a class="founder__mail mono" href="mailto:ahsantahir0@gmail.com">ahsantahir0@gmail.com</a>
       </article>
 
@@ -396,7 +396,7 @@
         <div class="founder__mark mono">MQ</div>
         <h3>Muhammad Qais</h3>
         <p class="founder__role mono">Co-Founder &amp; Backend Engineer · Scraping &amp; Automation</p>
-        <p>Owns the visible half: product thinking, interfaces and the details that make software feel finished.</p>
+        <p>Lives in the backend: crawlers, queues, schedulers and the anti-bot work that keeps large scrapes running quietly.</p>
         <a class="founder__mail mono" href="mailto:mqais6666@gmail.com">mqais6666@gmail.com</a>
       </article>
     </div>
@@ -410,9 +410,71 @@
       <h2>Have something to build?</h2>
       <!-- keep this promise in step with the response-time stat above -->
       <p class="contact__sub">Tell us what you need. We reply within 24 hours.</p>
-      <div class="contact__actions">
-        <a class="btn btn--solid" data-magnet href="mailto:contact@hyphencode.com?subject=Project%20inquiry%20-%20HyphenCode">Email Us</a>
-      </div>
+
+      <!-- how we engage, without committing to numbers -->
+      <ul class="bands">
+        <li>
+          <span class="bands__title mono">one-off build</span>
+          <span class="bands__desc">Scoped project, agreed deliverable, handover and docs included.</span>
+        </li>
+        <li>
+          <span class="bands__title mono">monthly retainer</span>
+          <span class="bands__desc">Reserved capacity for a roadmap that keeps moving.</span>
+        </li>
+        <li>
+          <span class="bands__title mono">maintenance</span>
+          <span class="bands__desc">We keep what's already live running - fixes, upgrades, monitoring.</span>
+        </li>
+      </ul>
+
+      <!-- ============================================================
+           SETUP REQUIRED: this form posts nowhere until you create a
+           free Formspree form and paste its ID into the action below
+           (https://formspree.io -> New Form -> copy the endpoint).
+           Until then it will 404 on submit.
+           Without JS it degrades to a normal POST to Formspree, which
+           is why the action lives on the element rather than in js.
+           ============================================================ -->
+      <form class="cform" id="contactForm" method="POST"
+            action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID">
+        <div class="cform__row">
+          <label class="cform__field">
+            <span class="cform__label mono">your name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="cform__field">
+            <span class="cform__label mono">email</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+        </div>
+
+        <label class="cform__field">
+          <span class="cform__label mono">what do you need?</span>
+          <select name="project_type">
+            <option>Web platform or app</option>
+            <option>Backend &amp; APIs</option>
+            <option>Web scraping / data extraction</option>
+            <option>Automation</option>
+            <option>AI workflow</option>
+            <option>Something else</option>
+          </select>
+        </label>
+
+        <label class="cform__field">
+          <span class="cform__label mono">a few lines about the project</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+
+        <!-- honeypot: bots fill it, humans never see it -->
+        <input type="text" name="_gotcha" class="cform__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <button type="submit" class="btn btn--solid cform__submit">Send enquiry</button>
+        <p class="cform__status mono" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="contact__alt mono">
+        or email <a href="mailto:contact@hyphencode.com?subject=Project%20inquiry%20-%20HyphenCode">contact@hyphencode.com</a>
+      </p>
     </div>
   </section>
 
