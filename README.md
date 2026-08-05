@@ -1,6 +1,6 @@
-# Hyphen Code — Company Website
+# Hyphen Code - Company Website
 
-Static, dependency-free website for **Hyphen Code** (software · scraping · automation · AI). Pure HTML/CSS/JS — no build step, deploys directly to GitHub Pages.
+Static, dependency-free website for **Hyphen Code** (software · scraping · automation · AI). Pure HTML/CSS/JS - no build step, deploys directly to GitHub Pages.
 
 ## Folder structure
 

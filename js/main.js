@@ -1,5 +1,5 @@
 /* =========================================================
-   HYPHEN CODE — main.js
+   HYPHEN CODE - main.js
    1. Starfield canvases (hero + contact) with mouse parallax
    2. Rotating word carousel in the hero
    3. Scroll-reveal via IntersectionObserver
@@ -107,8 +107,8 @@ function starfield(canvasId, density = 9000, connect = true) {
   frame();
 }
 
-starfield("stars", 8000, true);   // hero — denser, interactive
-starfield("stars2", 14000, false); // contact — sparser, ambient
+starfield("stars", 8000, true);   // hero - denser, interactive
+starfield("stars2", 14000, false); // contact - sparser, ambient
 
 /* ---------------------------------------------------------
    2. ROTATING WORD CAROUSEL
