@@ -208,17 +208,25 @@ starfield("stars2", 14000, false); // contact - sparser, ambient
     nav.classList.toggle("scrolled", window.scrollY > 30);
   }, { passive: true });
 
-  burger.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
+  function setMenu(open) {
+    links.classList.toggle("open", open);
     burger.setAttribute("aria-expanded", String(open));
-  });
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+
+  burger.addEventListener("click", () => setMenu(!links.classList.contains("open")));
 
   links.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => {
-      links.classList.remove("open");
-      burger.setAttribute("aria-expanded", "false");
-    })
+    a.addEventListener("click", () => setMenu(false))
   );
+
+  // Escape closes the menu and hands focus back to the control that opened it
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && links.classList.contains("open")) {
+      setMenu(false);
+      burger.focus();
+    }
+  });
 
   document.getElementById("year").textContent = new Date().getFullYear();
 })();

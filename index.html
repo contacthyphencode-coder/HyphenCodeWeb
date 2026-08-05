@@ -18,8 +18,33 @@
   <meta property="og:url" content="https://hyphencode.com/" />
   <meta property="og:title" content="HyphenCode - Software, Automation &amp; AI" />
   <meta property="og:description" content="HyphenCode builds web platforms, backends, scrapers and AI automations." />
-  <meta property="og:image" content="https://hyphencode.com/assets/favicon-512.png" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://hyphencode.com/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="HyphenCode" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://hyphencode.com/assets/og-image.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HyphenCode",
+    "url": "https://hyphencode.com/",
+    "logo": "https://hyphencode.com/assets/favicon-512.png",
+    "image": "https://hyphencode.com/assets/og-image.jpg",
+    "description": "HyphenCode builds web platforms, backends, scrapers and AI automations.",
+    "email": "contact@hyphencode.com",
+    "founder": [
+      { "@type": "Person", "name": "Ahsan Tahir" },
+      { "@type": "Person", "name": "Muhammad Qais" }
+    ],
+    "knowsAbout": [
+      "Web development", "Backend development", "Frontend development",
+      "Web scraping", "Data extraction", "Automation", "AI automation"
+    ]
+  }
+  </script>
 
   <!-- Fonts: Chakra Petch (angular display, echoes the logo cuts), Manrope (body), JetBrains Mono (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,6 +71,8 @@
   <!-- ===================== CUSTOM CURSOR ===================== -->
   <div class="cursor" id="cursorDot" aria-hidden="true"></div>
   <div class="cursor__ring" id="cursorRing" aria-hidden="true"></div>
+
+  <a class="skip" href="#services">Skip to content</a>
 
   <!-- ===================== NAVBAR ===================== -->
   <header class="nav" id="nav">
@@ -83,7 +110,10 @@
       </h1>
 
       <!-- Rotating description carousel, sits on top of the starfield -->
-      <div class="hero__carousel reveal d3" aria-live="polite">
+      <!-- aria-live off: this rotates forever, and announcing every 2.6s would
+           hijack a screen reader for the whole visit. The same words appear in
+           the services list below. -->
+      <div class="hero__carousel reveal d3" aria-live="off">
         <span class="hero__static">We build</span>
         <span class="hero__words" id="rotator">
           <!-- invisible sizer: holds the box open to the longest phrase so none
@@ -347,7 +377,7 @@
   </section>
 
   <!-- ===================== FOUNDERS ===================== -->
-  <section class="section" id="founders">
+  <section class="section section--alt" id="founders">
     <div class="section__head reveal">
       <p class="eyebrow mono">- founders</p>
       <h2>Two engineers, one standard</h2>
@@ -357,7 +387,7 @@
       <article class="founder reveal" data-tilt>
         <div class="founder__mark mono">AT</div>
         <h3>Ahsan Tahir</h3>
-        <p class="founder__role mono">Co-Founder &amp; Full Stack Engineer | Data Extraction & Automation Specialist</p>
+        <p class="founder__role mono">Co-Founder &amp; Full Stack Engineer · Data Extraction &amp; Automation</p>
         <p>Builds the invisible half: APIs, scraping pipelines, task queues and the infrastructure that keeps them honest.</p>
         <a class="founder__mail mono" href="mailto:ahsantahir0@gmail.com">ahsantahir0@gmail.com</a>
       </article>
@@ -365,7 +395,7 @@
       <article class="founder reveal" data-tilt>
         <div class="founder__mark mono">MQ</div>
         <h3>Muhammad Qais</h3>
-        <p class="founder__role mono">Co-Founder &amp; Backend Engineer — Scraping & Automation Specialist</p>
+        <p class="founder__role mono">Co-Founder &amp; Backend Engineer · Scraping &amp; Automation</p>
         <p>Owns the visible half: product thinking, interfaces and the details that make software feel finished.</p>
         <a class="founder__mail mono" href="mailto:mqais6666@gmail.com">mqais6666@gmail.com</a>
       </article>
@@ -373,12 +403,13 @@
   </section>
 
   <!-- ===================== CONTACT ===================== -->
-  <section class="section section--alt contact" id="contact">
+  <section class="section contact" id="contact">
     <canvas id="stars2" aria-hidden="true"></canvas>
     <div class="contact__inner reveal">
       <p class="eyebrow mono">- contact</p>
       <h2>Have something to build?</h2>
-      <p class="contact__sub">Tell us what you need. We reply within one working day.</p>
+      <!-- keep this promise in step with the response-time stat above -->
+      <p class="contact__sub">Tell us what you need. We reply within 24 hours.</p>
       <div class="contact__actions">
         <a class="btn btn--solid" data-magnet href="mailto:contact@hyphencode.com?subject=Project%20inquiry%20-%20HyphenCode">Email Us</a>
       </div>

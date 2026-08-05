@@ -17,7 +17,10 @@ hyphen-code/
 │   ├── favicon-32.png       # white mark, for dark browser chrome
 │   ├── favicon-32-dark.png  # dark mark, for light browser chrome
 │   ├── favicon-512.png      # large icon / social preview
-│   └── apple-touch-icon.png # 180x180, brand background baked in (iOS ignores alpha)
+│   ├── apple-touch-icon.png # 180x180, brand background baked in (iOS ignores alpha)
+│   └── og-image.jpg         # 1200x630 social card
+├── robots.txt
+├── sitemap.xml
 └── README.md
 ```
 
@@ -67,6 +70,13 @@ loaded from a CDN so the site stays dependency-free and works offline.
 - Alt sections sit on a slab skewed `-1.1deg`, so section edges cut diagonally like the logo's angles (flattened under 760px)
 - Custom cursor (dot + trailing ring) on fine-pointer devices only
 - `prefers-reduced-motion` fully respected — it disables the preloader, cursor, watermark drift and count-up
+
+## Accessibility notes
+
+- `--dim` is the lightest colour that still clears WCAG AA on `--surface` (4.53:1). Don't darken it — it's used for 11–13px text where the large-text exemption doesn't apply.
+- The mobile menu uses `visibility: hidden` when closed, not just `translateY`. A translated menu keeps its links in the tab order and traps keyboard users on off-screen items.
+- The hero carousel is `aria-live="off"` on purpose: it rotates forever, and announcing it would hijack a screen reader for the whole visit.
+- `:focus-visible` is styled with an offset outline so it clears the `clip-path` notch on buttons.
 
 ## Run locally
 
