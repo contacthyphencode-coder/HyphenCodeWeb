@@ -18,6 +18,7 @@ hyphen-code/
 │   ├── favicon-32-dark.png  # dark mark, for light browser chrome
 │   ├── favicon-512.png      # large icon / social preview
 │   ├── apple-touch-icon.png # 180x180, brand background baked in (iOS ignores alpha)
+│   ├── logo-lockup.png      # mark + HYPHENCODE wordmark, transparent
 │   └── og-image.jpg         # 1200x630 social card
 ├── robots.txt
 ├── sitemap.xml
@@ -27,6 +28,12 @@ hyphen-code/
 The favicons are generated from `HYPHEN CODE.jpg` by cropping to the mark and
 mapping luminance to alpha, so the black backdrop drops out. If the logo ever
 changes, regenerate all five - don't hand-edit them.
+
+Note the source file still reads **HYPHEN CODE** (two words). `logo-lockup.png`
+and `og-image.jpg` are rebuilt from that same lettering with the 39px word space
+closed to 13px, matching the 12-14px gaps on either side - so the wordmark reads
+**HYPHENCODE** in the original typeface rather than being re-typeset. If you have
+the vector original, updating it there is the cleaner long-term fix.
 
 ### Tech stack icons
 
