@@ -6,6 +6,10 @@
    4. 3D tilt on cards
    5. Magnetic buttons
    6. Navbar state + mobile menu
+   7. Preloader
+   8. Custom cursor
+   9. Stat count-up
+  10. Hero watermark parallax
    ========================================================= */
 
 const prefersReducedMotion = window.matchMedia(
@@ -216,4 +220,153 @@ starfield("stars2", 14000, false); // contact - sparser, ambient
   );
 
   document.getElementById("year").textContent = new Date().getFullYear();
+})();
+
+/* ---------------------------------------------------------
+   7. PRELOADER
+   Opens on `load`, but always opens - a slow or failed asset
+   must never leave the page sitting behind the shutters.
+   --------------------------------------------------------- */
+(function preloader() {
+  const el = document.getElementById("preloader");
+  if (!el) return;
+  if (prefersReducedMotion) { el.remove(); return; }
+
+  const MIN_VISIBLE = 550;   // let the hyphen finish drawing
+  const HARD_LIMIT = 1800;   // ...but never hold the page longer than this
+  const start = performance.now();
+  let done = false;
+
+  function finish() {
+    if (done) return;
+    done = true;
+    el.classList.add("is-done");
+    setTimeout(() => el.classList.add("is-hidden"), 700);
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(finish, Math.max(0, MIN_VISIBLE - (performance.now() - start)));
+  });
+  setTimeout(finish, HARD_LIMIT);
+})();
+
+/* ---------------------------------------------------------
+   8. CUSTOM CURSOR
+   Dot tracks the pointer exactly; ring lags behind and swells
+   over anything interactive.
+   --------------------------------------------------------- */
+(function cursor() {
+  if (prefersReducedMotion) return;
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  const dot = document.getElementById("cursorDot");
+  const ring = document.getElementById("cursorRing");
+  if (!dot || !ring) return;
+
+  document.body.classList.add("has-cursor");
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  window.addEventListener("pointermove", (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+  }, { passive: true });
+
+  (function follow() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx.toFixed(2)}px, ${ry.toFixed(2)}px)`;
+    requestAnimationFrame(follow);
+  })();
+
+  const HOVERABLE = "a, button, [data-tilt], .stack__list li, .work__tags li";
+  document.addEventListener("pointerover", (e) => {
+    if (e.target.closest(HOVERABLE)) ring.classList.add("is-hover");
+  });
+  document.addEventListener("pointerout", (e) => {
+    const to = e.relatedTarget;
+    if (e.target.closest(HOVERABLE) && !(to && to.closest && to.closest(HOVERABLE))) {
+      ring.classList.remove("is-hover");
+    }
+  });
+
+  // hide when the pointer leaves the window entirely
+  document.addEventListener("mouseleave", () => {
+    dot.style.opacity = "0"; ring.style.opacity = "0";
+  });
+  document.addEventListener("mouseenter", () => {
+    dot.style.opacity = ""; ring.style.opacity = "";
+  });
+})();
+
+/* ---------------------------------------------------------
+   9. STAT COUNT-UP
+   --------------------------------------------------------- */
+(function counters() {
+  const nums = document.querySelectorAll(".stat__num");
+  if (!nums.length) return;
+
+  function run(el) {
+    const target = parseInt(el.dataset.count, 10) || 0;
+    const suffix = el.dataset.suffix || "";
+    if (prefersReducedMotion) {
+      el.textContent = target + suffix;
+      return;
+    }
+    const DUR = 1400;
+    let t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      const p = Math.min(1, (ts - t0) / DUR);
+      const eased = 1 - Math.pow(1 - p, 3);       // ease-out cubic
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    nums.forEach(run);
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  nums.forEach((n) => io.observe(n));
+})();
+
+/* ---------------------------------------------------------
+   10. HERO WATERMARK PARALLAX
+   Drifts against the starfield: stars shift toward the
+   cursor, the mark shifts away from it.
+   --------------------------------------------------------- */
+(function watermark() {
+  const el = document.getElementById("heroWatermark");
+  const hero = document.querySelector(".hero");
+  if (!el || !hero || prefersReducedMotion) return;
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, scroll = 0;
+
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    tx = -((e.clientX - r.left) / r.width - 0.5) * 46;
+    ty = -((e.clientY - r.top) / r.height - 0.5) * 46;
+  }, { passive: true });
+
+  hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; });
+
+  window.addEventListener("scroll", () => {
+    scroll = window.scrollY * 0.12;
+  }, { passive: true });
+
+  (function drift() {
+    cx += (tx - cx) * 0.06;
+    cy += (ty - cy) * 0.06;
+    el.style.transform =
+      `translate(calc(-50% + ${cx.toFixed(1)}px), calc(-50% + ${(cy + scroll).toFixed(1)}px))`;
+    requestAnimationFrame(drift);
+  })();
 })();

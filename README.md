@@ -1,6 +1,6 @@
-# Hyphen Code - Company Website
+# HyphenCode - Company Website
 
-Static, dependency-free website for **Hyphen Code** (software · scraping · automation · AI). Pure HTML/CSS/JS - no build step, deploys directly to GitHub Pages.
+Static, dependency-free website for **HyphenCode** (software · scraping · automation · AI). Pure HTML/CSS/JS - no build step, deploys directly to GitHub Pages.
 
 ## Folder structure
 
@@ -10,11 +10,20 @@ hyphen-code/
 ├── css/
 │   └── style.css       # design tokens, layout, animations
 ├── js/
-│   └── main.js         # starfield, carousel, reveals, tilt, magnetic buttons
+│   └── main.js         # starfield, carousel, reveals, tilt, magnets, cursor, counters
 ├── assets/
-│   └── logo.png        # brand logo (also used as favicon)
+│   ├── HYPHEN CODE.jpg      # source logo (mark + wordmark) - keep, everything below derives from it
+│   ├── mark.png             # triangle mark only, transparent - navbar, footer, hero watermark
+│   ├── favicon-32.png       # white mark, for dark browser chrome
+│   ├── favicon-32-dark.png  # dark mark, for light browser chrome
+│   ├── favicon-512.png      # large icon / social preview
+│   └── apple-touch-icon.png # 180x180, brand background baked in (iOS ignores alpha)
 └── README.md
 ```
+
+The favicons are generated from `HYPHEN CODE.jpg` by cropping to the mark and
+mapping luminance to alpha, so the black backdrop drops out. If the logo ever
+changes, regenerate all five - don't hand-edit them.
 
 ## Sections
 
@@ -23,7 +32,10 @@ hyphen-code/
 | Navbar   | Fixed, transparent → blurred glass on scroll; mobile burger menu |
 | Hero     | Interactive starfield canvas + rotating "We build …" word carousel |
 | Marquee  | Infinite scrolling strip of service keywords |
+| Stats    | Projects / experience / response time, count-up on scroll — **placeholder numbers, replace before sharing** |
 | Services | 6 angular cards (web, backend, frontend, scraping, automation, AI) with 3D tilt |
+| Stack    | Muted strip of the tools we actually build with |
+| Work     | 4 anonymised project cards — **placeholder copy, replace with real engagements** |
 | Process  | 4-step numbered timeline (Scope → Build → Ship → Maintain) |
 | Founders | Ahsan Tahir & Muhammad Qais with roles and email links |
 | Contact  | Second ambient starfield + mailto CTA to both founders |
@@ -34,7 +46,9 @@ hyphen-code/
 - Palette: `#050505` background, `#0d0d0d` surfaces, `#222` lines, `#ededed` text, `#9a9a9a` grey
 - Fonts: Chakra Petch (display), Manrope (body), JetBrains Mono (labels) via Google Fonts
 - Signature: the **hyphen** as a recurring motif, and an angular corner-notch (`clip-path`) on cards/buttons echoing the logo's cut geometry
-- `prefers-reduced-motion` fully respected
+- Alt sections sit on a slab skewed `-1.1deg`, so section edges cut diagonally like the logo's angles (flattened under 760px)
+- Custom cursor (dot + trailing ring) on fine-pointer devices only
+- `prefers-reduced-motion` fully respected — it disables the preloader, cursor, watermark drift and count-up
 
 ## Run locally
 

@@ -313,13 +313,33 @@ a { color: inherit; text-decoration: none; }
   max-width: 1200px;
   margin: 0 auto;
 }
+/* Alt sections sit on a skewed slab, so their edges cut diagonally across the
+   page like the angles in the logo. The slab overhangs the section box, so the
+   section itself must not clip it. */
 .section--alt {
   max-width: none;
+  position: relative;
+  isolation: isolate;
+  margin-top: 34px;
+  margin-bottom: 34px;
+}
+.section--alt::before {
+  content: "";
+  position: absolute;
+  inset: -34px 0;
   background: var(--surface);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  transform: skewY(-1.1deg);
+  z-index: -1;
 }
-.section--alt > * { max-width: 1200px; margin-left: auto; margin-right: auto; }
+/* canvas backdrops must stay full-bleed - only real content gets the column */
+.section--alt > *:not(canvas) {
+  position: relative;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .section__head { margin-bottom: clamp(40px, 6vw, 72px); }
 .eyebrow {
@@ -436,7 +456,8 @@ a { color: inherit; text-decoration: none; }
 .founder__mail:hover { color: var(--ink); border-color: var(--ink); }
 
 /* ---------- contact ---------- */
-.contact { position: relative; overflow: hidden; text-align: center; }
+/* overflow stays visible so the skewed slab keeps its diagonal edge */
+.contact { position: relative; text-align: center; }
 .contact__inner { position: relative; z-index: 2; }
 .contact h2 { font-size: clamp(28px, 5vw, 52px); font-weight: 600; }
 .contact__sub { color: var(--grey); margin-top: 16px; }
@@ -462,6 +483,202 @@ a { color: inherit; text-decoration: none; }
 .footer__note { font-size: 11px; color: var(--dim); width: 100%; text-align: center; margin-top: 12px; }
 
 /* =========================================================
+   PRELOADER
+   The hyphen stretches, then two shutters split apart.
+   ========================================================= */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.preloader__shutter {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50.5%;
+  background: var(--paper);
+  transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.preloader__shutter--top { top: 0; }
+.preloader__shutter--bottom { bottom: 0; }
+
+.preloader__rule {
+  position: relative;
+  z-index: 1;
+  height: 2px;
+  width: 0;
+  background: var(--ink);
+  animation: ruleStretch 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes ruleStretch {
+  from { width: 0; }
+  to   { width: min(240px, 42vw); }
+}
+
+.preloader.is-done .preloader__rule { opacity: 0; transition: opacity 0.15s ease; }
+.preloader.is-done .preloader__shutter--top { transform: translateY(-100%); }
+.preloader.is-done .preloader__shutter--bottom { transform: translateY(100%); }
+.preloader.is-hidden { display: none; }
+
+/* =========================================================
+   CUSTOM CURSOR
+   Enabled only on real pointer devices - see js.
+   ========================================================= */
+.cursor, .cursor__ring {
+  position: fixed;
+  top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+.cursor {
+  width: 6px; height: 6px;
+  background: var(--ink);
+  margin: -3px 0 0 -3px;
+}
+.cursor__ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(237, 237, 237, 0.45);
+  margin: -17px 0 0 -17px;
+  transition: opacity 0.3s ease, width 0.28s ease, height 0.28s ease,
+              margin 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+}
+body.has-cursor .cursor,
+body.has-cursor .cursor__ring { opacity: 1; }
+body.has-cursor,
+body.has-cursor a,
+body.has-cursor button { cursor: none; }
+
+/* grow the ring over anything clickable */
+.cursor__ring.is-hover {
+  width: 60px; height: 60px;
+  margin: -30px 0 0 -30px;
+  border-color: rgba(237, 237, 237, 0.75);
+  background: rgba(237, 237, 237, 0.06);
+}
+
+/* =========================================================
+   HERO WATERMARK
+   ========================================================= */
+.hero__watermark {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: min(680px, 82vw);
+  height: auto;
+  opacity: 0.03;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================================================
+   STATS BAR
+   ========================================================= */
+.stats {
+  border-bottom: 1px solid var(--line);
+  padding: clamp(38px, 6vw, 58px) clamp(20px, 6vw, 72px);
+}
+.stats__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+.stat { display: flex; flex-direction: column; gap: 10px; }
+.stat__num {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5.5vw, 54px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  font-size: 12px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   TECH STACK STRIP
+   ========================================================= */
+.stack { margin-top: clamp(48px, 7vw, 76px); }
+.stack__label { font-size: 13px; color: var(--grey); margin-bottom: 18px; }
+.stack__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.stack__list li {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  padding: 7px 14px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.stack__list li:hover { color: var(--ink); border-color: var(--grey); }
+
+/* =========================================================
+   WORK CARDS
+   ========================================================= */
+/* wider columns than the services grid so four cards land 2x2 rather than
+   3 + 1 orphan */
+.grid--work { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
+
+.work {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  clip-path: var(--notch);
+  padding: 32px 30px 28px;
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  transform-style: preserve-3d;
+}
+.work:hover { border-color: var(--grey); background: #0a0a0a; }
+.work__metric {
+  font-size: 12px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.work h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.work__desc { color: var(--grey); font-size: 14.5px; }
+.work__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.work__tags li {
+  font-size: 11px;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  padding: 4px 9px;
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 760px) {
@@ -481,6 +698,12 @@ a { color: inherit; text-decoration: none; }
   .nav__links a { font-size: 17px; }
   .step { grid-template-columns: 56px 1fr; gap: 16px; }
   .step__num { font-size: 20px; }
+
+  /* a 1.1deg skew over a narrow viewport is barely visible but still costs
+     vertical overhang - flatten it on phones */
+  .section--alt { margin-top: 0; margin-bottom: 0; }
+  .section--alt::before { inset: 0; transform: none; }
+  .stats__inner { gap: 26px; }
 }
 
 /* =========================================================
@@ -494,4 +717,7 @@ a { color: inherit; text-decoration: none; }
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .preloader { display: none; }
+  .cursor, .cursor__ring { display: none; }
+  .hero__watermark { transform: translate(-50%, -50%) !important; }
 }

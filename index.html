@@ -6,7 +6,20 @@
   <title>HyphenCode - Software, Automation & AI</title>
   <meta name="description" content="HyphenCode builds web platforms, backends, scrapers and AI automations. Founded by Ahsan Tahir and Muhammad Qais." />
 
-  <link rel="icon" type="image/png" href="assets/HYPHEN CODE.jpg" />
+  <!-- Favicon: the mark is white, so serve a dark version to light browser chrome -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32-dark.png" media="(prefers-color-scheme: light)" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <meta name="theme-color" content="#050505" />
+  <link rel="canonical" href="https://hyphencode.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hyphencode.com/" />
+  <meta property="og:title" content="HyphenCode - Software, Automation &amp; AI" />
+  <meta property="og:description" content="HyphenCode builds web platforms, backends, scrapers and AI automations." />
+  <meta property="og:image" content="https://hyphencode.com/assets/favicon-512.png" />
+  <meta name="twitter:card" content="summary" />
 
   <!-- Fonts: Chakra Petch (angular display, echoes the logo cuts), Manrope (body), JetBrains Mono (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,18 +27,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+  <!-- the preloader is opened by js; without js it must never cover the page -->
+  <noscript><style>.preloader { display: none; }</style></noscript>
 </head>
 <body>
+
+  <!-- ===================== PRELOADER ===================== -->
+  <!-- A hyphen stretches across the screen, then splits open to reveal the page. -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <span class="preloader__rule"></span>
+    <div class="preloader__shutter preloader__shutter--top"></div>
+    <div class="preloader__shutter preloader__shutter--bottom"></div>
+  </div>
+
+  <!-- ===================== CUSTOM CURSOR ===================== -->
+  <div class="cursor" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor__ring" id="cursorRing" aria-hidden="true"></div>
 
   <!-- ===================== NAVBAR ===================== -->
   <header class="nav" id="nav">
     <a class="nav__brand" href="#top">
-      <img src="assets/logo.png" alt="HyphenCode logo" class="nav__logo" />
+      <img src="assets/mark.png" alt="HyphenCode logo" class="nav__logo" />
       <span class="nav__name">HYPHENCODE</span>
     </a>
 
     <nav class="nav__links" id="navLinks">
       <a href="#services">Services</a>
+      <a href="#work">Work</a>
       <a href="#process">Process</a>
       <a href="#founders">Founders</a>
       <a href="#contact" class="nav__cta">Start a project</a>
@@ -39,6 +67,9 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="top">
     <canvas id="stars" aria-hidden="true"></canvas>
+
+    <!-- Oversized brand mark behind the headline; drifts against the starfield -->
+    <img src="assets/mark.png" alt="" class="hero__watermark" id="heroWatermark" aria-hidden="true" />
 
     <div class="hero__inner">
       <p class="hero__eyebrow mono reveal">- software studio · est. by two engineers</p>
@@ -86,6 +117,27 @@
     </div>
   </div>
 
+  <!-- ===================== STATS ===================== -->
+  <!-- TODO(hyphencode): replace the data-count values below with your real numbers
+       before this goes in front of clients. The 24-hr figure matches the reply
+       promise in the contact section - keep the two in sync if you change it. -->
+  <section class="stats" aria-label="Company at a glance">
+    <div class="stats__inner">
+      <div class="stat reveal">
+        <span class="stat__num mono" data-count="40" data-suffix="+">0</span>
+        <span class="stat__label mono">projects shipped</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat__num mono" data-count="8" data-suffix="+">0</span>
+        <span class="stat__label mono">years combined experience</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat__num mono" data-count="24" data-suffix="hr">0</span>
+        <span class="stat__label mono">typical response time</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== SERVICES ===================== -->
   <section class="section" id="services">
     <div class="section__head reveal">
@@ -130,10 +182,80 @@
         <p>LLM-powered agents and workflows: document processing, data enrichment, chat assistants and smart routing.</p>
       </article>
     </div>
+
+    <!-- ---------- tech stack strip ---------- -->
+    <div class="stack reveal">
+      <p class="stack__label mono">- what we build with</p>
+      <ul class="stack__list mono">
+        <li>Python</li>
+        <li>PostgreSQL</li>
+        <li>React</li>
+        <li>Node.js</li>
+        <li>Django</li>
+        <li>FastAPI</li>
+        <li>Celery</li>
+        <li>RabbitMQ</li>
+        <li>Redis</li>
+        <li>Playwright</li>
+        <li>Docker</li>
+        <li>AWS</li>
+        <li>Claude API</li>
+        <li>OpenAI API</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== WORK ===================== -->
+  <!-- TODO(hyphencode): these four cards are structural placeholders written from
+       your service list. Swap in real engagements and real numbers - published
+       metrics you cannot back up are worse than no portfolio at all. -->
+  <section class="section section--alt" id="work">
+    <div class="section__head reveal">
+      <p class="eyebrow mono">- work</p>
+      <h2>A sample of what we ship</h2>
+    </div>
+
+    <div class="grid grid--work">
+      <article class="work reveal" data-tilt>
+        <p class="work__metric mono">100k+ records / day</p>
+        <h3>Data pipeline for a SaaS analytics platform</h3>
+        <p class="work__desc">Scheduled ingestion, de-duplication and normalisation into PostgreSQL, with retries and alerting so bad source data never silently corrupts a dashboard.</p>
+        <ul class="work__tags mono">
+          <li>Python</li><li>Celery</li><li>PostgreSQL</li>
+        </ul>
+      </article>
+
+      <article class="work reveal" data-tilt>
+        <p class="work__metric mono">2M+ pages crawled</p>
+        <h3>Large-scale product scraper for a retail aggregator</h3>
+        <p class="work__desc">Distributed crawler with proxy rotation, anti-bot handling and change detection - delivering clean structured feeds on a fixed daily schedule.</p>
+        <ul class="work__tags mono">
+          <li>Playwright</li><li>RabbitMQ</li><li>Redis</li>
+        </ul>
+      </article>
+
+      <article class="work reveal" data-tilt>
+        <p class="work__metric mono">~20 hrs / week saved</p>
+        <h3>Back-office automation for an operations team</h3>
+        <p class="work__desc">Manual reporting and cross-system data entry replaced with scheduled jobs, reconciliation checks and Slack alerts when something needs a human.</p>
+        <ul class="work__tags mono">
+          <li>Python</li><li>REST APIs</li><li>Docker</li>
+        </ul>
+      </article>
+
+      <article class="work reveal" data-tilt>
+        <p class="work__metric mono">90%+ extraction accuracy</p>
+        <h3>LLM document processing for a document-heavy workflow</h3>
+        <p class="work__desc">Unstructured PDFs and emails parsed into validated structured fields, with confidence scoring that routes low-certainty cases to manual review.</p>
+        <ul class="work__tags mono">
+          <li>Claude API</li><li>FastAPI</li><li>PostgreSQL</li>
+        </ul>
+      </article>
+    </div>
   </section>
 
   <!-- ===================== PROCESS ===================== -->
-  <section class="section section--alt" id="process">
+  <section class="section" id="process">
     <div class="section__head reveal">
       <p class="eyebrow mono">- process</p>
       <h2>How a project moves through HyphenCode</h2>
@@ -205,7 +327,7 @@
       <h2>Have something to build?</h2>
       <p class="contact__sub">Tell us what you need. We reply within one working day.</p>
       <div class="contact__actions">
-        <a class="btn btn--solid" data-magnet href="mailto:contact.hyphencode.com?subject=Project%20inquiry%20-%20HyphenCode">Email Us</a>
+        <a class="btn btn--solid" data-magnet href="mailto:contact@hyphencode.com?subject=Project%20inquiry%20-%20HyphenCode">Email Us</a>
       </div>
     </div>
   </section>
@@ -213,11 +335,12 @@
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="footer__brand">
-      <img src="assets/logo.png" alt="" class="footer__logo" />
+      <img src="assets/mark.png" alt="" class="footer__logo" />
       <span class="mono">HYPHENCODE</span>
     </div>
     <nav class="footer__links mono">
       <a href="#services">services</a>
+      <a href="#work">work</a>
       <a href="#process">process</a>
       <a href="#founders">founders</a>
       <a href="#contact">contact</a>
