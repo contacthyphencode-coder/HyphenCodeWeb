@@ -25,6 +25,24 @@ The favicons are generated from `HYPHEN CODE.jpg` by cropping to the mark and
 mapping luminance to alpha, so the black backdrop drops out. If the logo ever
 changes, regenerate all five - don't hand-edit them.
 
+### Tech stack icons
+
+The `<svg class="sprite">` block at the top of `index.html` holds the brand marks
+as `<symbol>`s, referenced by `<use href="#i-slug">`. They're inlined rather than
+loaded from a CDN so the site stays dependency-free and works offline.
+
+- Source: [Simple Icons](https://simpleicons.org) (icons CC0; the marks remain
+  the trademarks of their respective owners).
+- Each path carries its own `fill` with the official brand colour. **Don't set
+  `fill` on `.stack__icon` in CSS** - it would beat the presentation attribute
+  and flatten every icon to one colour.
+- Brand colours too dark to see on `#050505` (Django, curl, OpenAI) are lifted in
+  HSL, preserving hue. Colours that are essentially black (Anthropic) invert to
+  near-white instead, which is what brand guidelines prescribe on dark grounds.
+- Tools with no published mark (BeautifulSoup, Requests, httpx, proxy rotation,
+  anti-bot handling) use `#i-mark`, an in-house hyphen glyph that inherits
+  `currentColor`.
+
 ## Sections
 
 | Section  | What it does |
@@ -34,7 +52,7 @@ changes, regenerate all five - don't hand-edit them.
 | Marquee  | Infinite scrolling strip of service keywords |
 | Stats    | Projects / experience / response time, count-up on scroll — **placeholder numbers, replace before sharing** |
 | Services | 6 angular cards (web, backend, frontend, scraping, automation, AI) with 3D tilt |
-| Stack    | Muted strip of the tools we actually build with |
+| Stack    | Tools grouped by area, each with its brand icon |
 | Work     | 4 anonymised project cards — **placeholder copy, replace with real engagements** |
 | Process  | 4-step numbered timeline (Scope → Build → Ship → Maintain) |
 | Founders | Ahsan Tahir & Muhammad Qais with roles and email links |

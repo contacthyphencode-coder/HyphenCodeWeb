@@ -120,7 +120,8 @@ starfield("stars2", 14000, false); // contact - sparser, ambient
 (function rotator() {
   const box = document.getElementById("rotator");
   if (!box || prefersReducedMotion) return;
-  const words = [...box.children];
+  const words = [...box.querySelectorAll(".hero__word")];  // skips the sizer
+  if (!words.length) return;
   let i = 0;
 
   setInterval(() => {

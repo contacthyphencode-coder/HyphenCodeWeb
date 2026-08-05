@@ -194,7 +194,8 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 4px 12px;
   justify-content: center;
   align-items: baseline;
 }
@@ -202,12 +203,18 @@ a { color: inherit; text-decoration: none; }
 .hero__words {
   position: relative;
   display: inline-block;
-  min-width: 15ch;
+  max-width: 100%;
   height: 1.4em;
   text-align: left;
   overflow: hidden;
 }
-.hero__words span {
+/* in flow, so it dictates the width; hidden, so it is never seen */
+.hero__words-sizer {
+  display: block;
+  visibility: hidden;
+  white-space: nowrap;
+}
+.hero__words .hero__word {
   position: absolute;
   left: 0; top: 0;
   white-space: nowrap;
@@ -614,7 +621,19 @@ body.has-cursor button { cursor: none; }
    TECH STACK STRIP
    ========================================================= */
 .stack { margin-top: clamp(48px, 7vw, 76px); }
-.stack__label { font-size: 13px; color: var(--grey); margin-bottom: 18px; }
+.stack__label { font-size: 13px; color: var(--grey); margin-bottom: 28px; }
+
+.stack__groups { display: grid; gap: 28px; }
+.stack__group-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+  margin-bottom: 13px;
+}
+
 .stack__list {
   list-style: none;
   display: flex;
@@ -622,14 +641,33 @@ body.has-cursor button { cursor: none; }
   gap: 10px;
 }
 .stack__list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: var(--dim);
+  color: var(--grey);
   border: 1px solid var(--line);
-  padding: 7px 14px;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  padding: 7px 14px 7px 11px;
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
-.stack__list li:hover { color: var(--ink); border-color: var(--grey); }
+.stack__list li:hover {
+  color: var(--ink);
+  border-color: var(--grey);
+  background: rgba(237, 237, 237, 0.04);
+}
+
+/* Brand marks carry their own fill (baked into the sprite), so no `fill` here -
+   a CSS fill would beat the paths' presentation attribute and flatten them all
+   to one colour. The house glyph uses fill="currentColor" instead. */
+.stack__icon {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  opacity: 0.88;
+  transition: opacity 0.25s ease;
+}
+.stack__list li:hover .stack__icon { opacity: 1; }
 
 /* =========================================================
    WORK CARDS
